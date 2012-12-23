@@ -1,18 +1,11 @@
-
 var irc = require('irc');
-// Create Bot Instance
-var bot = new irc.Client('irc.freenode.org', 'ManaNode', {
-    debug: true,
-    channels: ['#ManaTest'],
-    autoConnect: true,
-    stripColors: true,
-    userName: 'SeaBot',
-    showErrors: true
-});
+var config = require('./config.json');
+var bot = new irc.Client(config.server, config.name, config.data);
 // Specify some variables we'll be using later
 bot.cmd = []; // This is used for flood protection
 bot.bookmark = {};
 bot.commandList = [];
+bot.api = config.apiKey;
 bot.admin = ''; // initialize the admin variable
 // Lets load all of our plugins
 ircLib = require('./lib.js'); // this allows us to load/reload our plugins

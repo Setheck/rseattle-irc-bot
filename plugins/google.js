@@ -2,7 +2,7 @@ var listen = /google/i;
 
 
 function process(nick, to, cmd, topass) {
-    var GoogleSearchAPIKey = "ABQIAAAAWIEtTgzDMl9txq3HBCPj0RT2yXp_ZAY8_ufC3CFXhHIE1NvwkxR68530jlFSGTko3i0JyyH6WyqUjw";
+    var GoogleSearchAPIKey = bot.api.gSearch;
     var numGoogleResults = 1; // maximum is 8.
     var fetch = require('fetch').fetchUrl;
     var googleurl = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=8&q=" + encodeURIComponent(topass) + "&key=" + GoogleSearchAPIKey;

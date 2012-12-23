@@ -2,11 +2,10 @@ var listen = /forecast/;
 
 
 function process(nick, to, cmd, topass) {
-    var weather = require('./WunderNodeClient.js');
-    var apikey = 'd3985ecec9c19265';
-    var debug = false;
-    var wunder = new weather(apikey, debug);
-    wunder.forecast(function (err, out) {
+    var fetch = require('fetch').fetchUrl;
+    var apikey = bot.api.wunderground;
+    var url = 'http://api.wunderground.com/api/'+apikey+'/forecast/q/'+topass+'.json';
+   fetch(url, function (error, meta, out) {
         try {
             var json = JSON.parse(out);
             if (json.response.error) {
@@ -27,5 +26,5 @@ function process(nick, to, cmd, topass) {
         } catch (err) {
             bot.say(to, 'err: ' + err);
         }
-    }, topass);
+    });
 }
