@@ -1,4 +1,6 @@
 var listen = /youtube/;
+
+//todo: remove dependency on youtube-feeds
 function process(nick, to, cmd, topass) {
 	var youtube = require('youtube-feeds');
 	youtube.video( topass, function (data, err) {
