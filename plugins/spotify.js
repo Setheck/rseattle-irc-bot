@@ -1,16 +1,18 @@
 var listen = /spotify/;
 
 function process(nick, to, cmd, topass) {
-    var spotify = require('spotify');
+    var fetch = require('fetch').fetchUrl;
     data = topass.split(':');
-    spotify.lookup({
-        type: data[1],
-        id: data[2]
-    }, function (err, data) {
+    var url = 'http://ws.spotify.com/lookup/1/.json?uri=spotify:' + data[1] + ':' + data[2];
+    if (data[1] == 'artist') {
+        url += '&extras=album';
+    }
+    fetch(url, function (err, meta, out) {
         try {
-            if (!data || err) {
+            if (!out || err) {
                 console.log(err);
             } else {
+                var data = JSON.parse(out);
                 switch (data['info']['type']) {
                     case 'track':
                         track = '';
@@ -18,7 +20,6 @@ function process(nick, to, cmd, topass) {
                         if (data['track']['track-number']) {
                             track = ' Track #' + data['track']['track-number'] + ' with popularity ' + Math.round(data['track']['popularity'] * 100);
                         }
-
                         if (data['track']['length']) {
                             length = ' (' + reload.secToTime(Math.floor(data['track']['length'])) + ')';
                         }
