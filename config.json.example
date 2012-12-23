@@ -1,0 +1,21 @@
+{
+		"server" : "localhost",
+		"name" : "NodeBot",
+		"data" : {
+			"debug" : true,
+			"channels" : ["#test"],
+			"autoConnect" : true,
+			"stripColors" : true,
+			"userName" : "ircBot",
+			"showErrors" : true
+		},
+		"password" : "password",
+		"apiKey" : {
+			"wunderground" : "",
+			"gSearch" : "",
+			"imgur" : ""
+		},
+		"config" : {
+			"phantomPath" : "phantomjs"
+		}
+}
