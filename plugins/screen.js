@@ -4,7 +4,7 @@ var webshot = require('webshot');
 var imgur = require('imgur');
 var sqlite = require('sqlite3');
 var db = new sqlite.Database('mark.db');
-var imgurAPI = '7538dcd9ab08ddc42bd017b23ad79dbf';
+var imgurAPI = bot.api.imgur;
 imgur.setKey(imgurAPI);
 function process(nick, to, cmd, topass) {
 	if (validator.check(topass).isUrl()) {
