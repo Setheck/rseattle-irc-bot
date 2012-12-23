@@ -10,7 +10,7 @@ function process(nick, to, cmd, topass) {
 	if (validator.check(topass).isUrl()) {
 		bot.say(to, 'Generating image for URL: ' + topass);
 		var options = {
-			phantomPath : '/home/nick/node_modules/phantomjs/lib/phantom/bin/phantomjs'
+			phantomPath : bot.config.phantomPath
 		}
 		var fileName = 'image-' + Math.random().toString(36).substring(7);
 		webshot(topass, 'images/'+fileName+'.png', options, function(err) {

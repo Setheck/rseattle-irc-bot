@@ -7,6 +7,7 @@ bot.bookmark = {};
 bot.commandList = [];
 bot.api = config.apiKey;
 bot.password = config.password;
+bot.config = config.config;
 
 ircLib = require('./lib.js');
 bot.eventList = ircLib.addPlugins(bot, ircLib); 
