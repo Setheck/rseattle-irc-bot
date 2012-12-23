@@ -9,7 +9,7 @@ bot.api = config.apiKey;
 bot.password = config.password;
 
 ircLib = require('./lib.js');
-var eventList = ircLib.addPlugins(bot, ircLib); 
+bot.eventList = ircLib.addPlugins(bot, ircLib); 
 
 // In case anything goes wrong
 bot.addListener('error', function (message) {
@@ -58,7 +58,7 @@ bot.addListener('botcommand', function (nick, to, text) {
     raw.shift();
     topass = raw.join(' ');
     console.log('CMD: %s: %s', cmd, topass);
-    for (i = 0; i < eventList.length; i++) {
+    for (i = 0; i < bot.eventList.length; i++) {
         if (cmd.match(eventList[i][0])) {
             try {
                 eventList[i][1](nick, to, cmd, topass);
