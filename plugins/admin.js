@@ -33,7 +33,9 @@ function process(nick, to, cmd, topass) {
         }
     }
     if (cmds[0].match(/rld/)) {
-        eventList = reload.addPlugins(bot, reload);
-        bot.say(to, "Reloaded");
+        if (nick == bot.admin) {
+            bot.eventList = reload.addPlugins(bot, reload);
+            bot.say(to, "Reloaded");
+        }
     }
 }
