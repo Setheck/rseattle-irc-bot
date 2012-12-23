@@ -1,15 +1,15 @@
 var irc = require('irc');
 var config = require('./config.json');
 var bot = new irc.Client(config.server, config.name, config.data);
-// Specify some variables we'll be using later
-bot.cmd = []; // This is used for flood protection
+
+bot.cmd = []; 
 bot.bookmark = {};
 bot.commandList = [];
 bot.api = config.apiKey;
-bot.admin = ''; // initialize the admin variable
-// Lets load all of our plugins
-ircLib = require('./lib.js'); // this allows us to load/reload our plugins
-eventList = ircLib.addPlugins(bot, ircLib); // load plugins for the first time
+bot.password = config.password;
+
+ircLib = require('./lib.js');
+var eventList = ircLib.addPlugins(bot, ircLib); 
 
 // In case anything goes wrong
 bot.addListener('error', function (message) {
@@ -46,13 +46,12 @@ bot.addListener('message#', function (nick, to, text, message) {
         }
     }
 });
+
 //Initialize variable for flood protection
 bot.addListener('names', function (channel, nicks) {
     bot.cmd[channel] = 0;
 });
 
-//This listener is called when the message listener determines there's a possibility
-//that a command has been issues
 bot.addListener('botcommand', function (nick, to, text) {
     raw = text.split(' ');
     cmd = raw[0];

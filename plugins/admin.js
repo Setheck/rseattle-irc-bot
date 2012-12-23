@@ -3,7 +3,7 @@ var listen = /admin/i;
 function process(nick, to, cmd, topass) {
     cmds = topass.split(' ');
     if (cmds[0].match(/login/)) {
-        if (cmds[1].match(/password/)) {
+        if (cmds[1] == bot.password) {
             bot.admin = nick;
             bot.say(nick, "Logged in as admin, nig");
         }
@@ -22,10 +22,10 @@ function process(nick, to, cmd, topass) {
                 reload: reload
             };
             try {
-                out = cmds.slice(1);
-                eval = out.join(' ');
+                var out = cmds.slice(1);
+                var eval = out.join(' ');
                 console.log(eval);
-                cmd = '';
+                var cmd = '';
                 vm.runInNewContext(eval, sandbox);
             } catch (err) {
                 bot.say(to, err);
