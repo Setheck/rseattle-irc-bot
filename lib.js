@@ -32,7 +32,7 @@ module.exports = {
 		sec += ''; min += '';
 		while (min.length < 2) {min = '0' + min;}
 		while (sec.length < 2) {sec = '0' + sec;}
-		hr = (hr)?':'+hr:'';
+		hr = (hr)?hr+':':'';
 		return hr + min + ':' + sec;
 	},
 
