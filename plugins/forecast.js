@@ -13,8 +13,8 @@ function process(nick, to, cmd, topass) {
             } else {
                 var dates = json.forecast.simpleforecast.forecastday;
                 var output = [];
+                var util = require('util');
                 for (var i = 1; i < dates.length; i++) {
-                    var util = require('util');
                     var out = [];
                     out.push(util.format('[%s]', dates[i].date.weekday_short));
                     out.push(util.format('High: %s F (%s C) - Low: %s F (%s C).', dates[i].high.fahrenheit, dates[i].high.celsius, dates[i].low.fahrenheit, dates[i].low.celsius));
