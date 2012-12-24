@@ -25,7 +25,7 @@ bot.addListener('message#', function (nick, to, text, message) {
         bot.emit('botcommand', nick, to, text.substr(1));
     }
     //YouTube - if YT plugin is not loaded it will not reply
-    if (id = text.match(/(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?((\w|-){11,})/)) {
+    if (id = text.match(/[v=|\/]([\w-]+)(&.+)?$/)) {
         if (ircLib.floodControl(bot, to, text)) {
             bot.emit('botcommand', nick, to, 'youtube ' + id[1]);
         }
