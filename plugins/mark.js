@@ -5,11 +5,22 @@ populateDatabase();
 function process(nick, to, cmd, topass) {
 	data = topass.split(' ');
 	if (data.length < 2) {
-		bot.say(to, 'I need ~bookmark [phrase] [bookmark]->');
+		var addlString;
+		if (bot.config.bookPort != '0') {
+			addlString = 'Bookmarks can be found at http://' + bot.config.bookAddr + ':' + bot.config.bookPort;
+		}
+		bot.say(to, 'I need ~bookmark [phrase] [bookmark]-> OR ~bookmark remove [phrase] '+addlString);
 	} else {
 		var phrase = data.shift();
 		data = data.join(' ');
-		if (!isFunction(phrase)) {
+		if (phrase.match(/remove/i)) {
+			if (bot.bookmark.hasOwnProperty(data)) {
+				delete bot.bookmark[data];
+				bot.say(to, 'Bookmark ' + data + ' deleted');
+				removeBookmark(data);
+			}
+		}
+		else if (!isFunction(phrase)) {
 			bot.bookmark[phrase] = data;
 			addToDatabase(data, phrase);
 			bot.say(to, "Bookmark added!");
@@ -26,7 +37,7 @@ function isFunction(phrase) {
 }
 function addToDatabase(phrase, key) {
 	db.serialize(function() {
-		var rem = db.prepare("DELETE FROM bookmark WHERE key = ?");
+		var rem = db.prepare("DELETE FROM bookmark WHERE key = ?;");
 		rem.run(key);
 		rem.finalize();
 		var stmt = db.prepare("INSERT INTO bookmark VALUES (?, ?);");
@@ -34,7 +45,13 @@ function addToDatabase(phrase, key) {
 		stmt.finalize();
 	});
 }
-
+function removeBookmark(data) {
+	db.serialize(function() {
+		var rem = db.prepare("DELETE FROM bookmark WHERE key = ?;");
+		rem.run(data);
+		rem.finalize();
+	});
+}
 function populateDatabase() {
 	db.serialize(function() {
 		db.run('CREATE TABLE if not exists bookmark (key TEXT, value TEXT);');
@@ -42,4 +59,16 @@ function populateDatabase() {
 			bot.bookmark[row.key] = row.value;
 		});
 	});
+}
+function writeResponse(req, res) {
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	Object.keys(bot.bookmark).forEach(function(element, key) {
+		res.write(element+ ' : ' + bot.bookmark[element] + '\n');
+	});
+	res.end();
+}
+if (bot.config.bookPort != '0') {
+	var http = require('http');
+	http.createServer(writeResponse).listen(bot.config.bookPort, bot.config.bookAddr);
+	console.log('Bookmark list running at http://'+ bot.config.bookAddr+':'+bot.config.bookPort);
 }

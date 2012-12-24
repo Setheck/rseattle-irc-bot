@@ -16,6 +16,8 @@
 			"imgur" : ""
 		},
 		"config" : {
-			"phantomPath" : "phantomjs"
+			"phantomPath" : "phantomjs",
+			"bookPort" : "9123",
+			"bookAddr" : "216.244.84.179"
 		}
 }
