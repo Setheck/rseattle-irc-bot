@@ -17,7 +17,7 @@
 		},
 		"config" : {
 			"phantomPath" : "phantomjs",
-			"bookPort" : "9123",
-			"bookAddr" : "216.244.84.179"
+			"bookPort" : "0",
+			"bookAddr" : "0"
 		}
 }
