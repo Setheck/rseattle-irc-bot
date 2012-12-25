@@ -4,7 +4,7 @@ var db = new sqlite.Database('mark.db');
 populateDatabase();
 function process(nick, to, cmd, topass) {
 	data = topass.split(' ');
-	if (data.length < 2) {
+	if (data.length < 2 || data[0].length < 2) {
 		var addlString;
 		if (bot.config.bookPort != '0') {
 			addlString = 'Bookmarks can be found at http://' + bot.config.bookAddr + ':' + bot.config.bookPort;

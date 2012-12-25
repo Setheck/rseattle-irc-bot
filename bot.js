@@ -20,7 +20,9 @@ bot.addListener('error', function (message) {
 //Gets channel messages, figures out what to do with them
 bot.addListener('message#', function (nick, to, text, message) {
     console.log('%s: <%s> %s', to, nick, text);
-    var bookText = text.split(' ').shift().substr(1);
+    var first = text.split(' ').shift();
+    var pre = first.charAt(0);
+    var bookText = first.substr(1);
     if (text.match(/^[&~]/) && ircLib.floodControl(bot, to, text)) { //normal, prefixed, commands
         bot.emit('botcommand', nick, to, text.substr(1));
     }
@@ -41,7 +43,7 @@ bot.addListener('message#', function (nick, to, text, message) {
             bot.emit('botcommand', nick, to, 'spotify ' + 'spotify:' + id[1] + ':' + id[2]);
         }
     }
-    if (bot.bookmark.hasOwnProperty(bookText)) {
+    if (bot.bookmark.hasOwnProperty(bookText) && pre == "~") {
         if (ircLib.floodControl(bot, to, text)) {
             bot.say(to, '[B]: ' + bot.bookmark[bookText]);
         }
