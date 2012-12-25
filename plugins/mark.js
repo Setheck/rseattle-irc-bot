@@ -68,7 +68,10 @@ function writeResponse(req, res) {
 	res.end();
 }
 if (bot.config.bookPort != '0') {
+	if (bot.hasOwnProperty('bookServer')){
+		bot.bookServer.close();
+	}
 	var http = require('http');
-	http.createServer(writeResponse).listen(bot.config.bookPort, bot.config.bookAddr);
+	bot.bookServer = http.createServer(writeResponse).listen(bot.config.bookPort, bot.config.bookAddr);
 	console.log('Bookmark list running at http://'+ bot.config.bookAddr+':'+bot.config.bookPort);
 }
