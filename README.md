@@ -26,4 +26,4 @@ Features a simple plugin system that reads through the plugins dir.
 
 
 #API Keys
-not included are api keys for wunderground, google search and imgur
+not included are api keys for wunderground, google search, imgur, walkscore and wordnik
