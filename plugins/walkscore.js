@@ -6,7 +6,8 @@ function process(nick, to, cmd, topass) {
     fetch(url, function (error, meta, body) {
         try {
             data = JSON.parse(body.toString());
-            var walkurl = 'http://api.walkscore.com/score?format=json&address=' + data.results[0].formatted_address + '&lat= ' + data.results[0].geometry.location.lat + '&lon=' + data.results[0].geometry.location.lng + '&wsapikey=0c1df580a54e0b25dd7b1f910c142363';
+            var wapikey = bot.api.walkscore;
+            var walkurl = 'http://api.walkscore.com/score?format=json&address=' + data.results[0].formatted_address + '&lat= ' + data.results[0].geometry.location.lat + '&lon=' + data.results[0].geometry.location.lng + '&wsapikey='+wapikey;
             fetch(walkurl, function (error, meta, body) {
                 try {
                     walk = JSON.parse(body.toString());

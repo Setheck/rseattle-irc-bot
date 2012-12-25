@@ -14,7 +14,8 @@
 			"wunderground" : "",
 			"gSearch" : "",
 			"imgur" : "",
-			"wordnik" : ""
+			"wordnik" : "",
+			"walkscore" : ""
 		},
 		"config" : {
 			"phantomPath" : "phantomjs",
