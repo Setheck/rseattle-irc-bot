@@ -13,7 +13,8 @@
 		"apiKey" : {
 			"wunderground" : "",
 			"gSearch" : "",
-			"imgur" : ""
+			"imgur" : "",
+			"wordnik" : ""
 		},
 		"config" : {
 			"phantomPath" : "phantomjs",
