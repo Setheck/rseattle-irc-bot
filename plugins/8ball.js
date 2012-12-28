@@ -28,7 +28,7 @@ function process(nick, to, cmd, topass) {
                 bot.say(to,'[8ball] Do you have a quesiton?');
 
         } else {
-            	bot.say(to,'[8ball] ' + outcomes[ Math.floor(Math.random() * outcomes.length)] );
+            	bot.say(to,'[8ball] ' + outcomes[ Math.floor((Math.random() * 100)) % outcomes.length ] );
         }
 
 }
