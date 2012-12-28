@@ -11,7 +11,7 @@ function process(nick, to, cmd, topass) {
 		}
 		bot.say(to, 'I need ~bookmark [phrase] [bookmark]-> OR ~bookmark remove [phrase] '+addlString);
 	} else {
-		var phrase = data.shift();
+		var phrase = data.shift().toLowerCase();
 		data = data.join(' ');
 		if (phrase.match(/remove/i)) {
 			if (bot.bookmark.hasOwnProperty(data)) {
@@ -56,7 +56,7 @@ function populateDatabase() {
 	db.serialize(function() {
 		db.run('CREATE TABLE if not exists bookmark (key TEXT, value TEXT);');
 		db.each("SELECT * FROM bookmark;", function(err, row) {
-			bot.bookmark[row.key] = row.value;
+			bot.bookmark[row.key.toLowerCase()] = row.value;
 		});
 	});
 }

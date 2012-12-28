@@ -22,7 +22,7 @@ bot.addListener('message#', function (nick, to, text, message) {
     console.log('%s: <%s> %s', to, nick, text);
     var first = text.split(' ').shift();
     var pre = first.charAt(0);
-    var bookText = first.substr(1);
+    var bookText = first.substr(1).toLowerCase();
     if (text.match(/^[&~]/) && ircLib.floodControl(bot, to, text)) { //normal, prefixed, commands
         bot.emit('botcommand', nick, to, text.substr(1));
     }
@@ -45,7 +45,7 @@ bot.addListener('message#', function (nick, to, text, message) {
     }
     if (bot.bookmark.hasOwnProperty(bookText) && pre == "~") {
         if (ircLib.floodControl(bot, to, text)) {
-            bot.say(to, '[B]: ' + bot.bookmark[bookText]);
+            bot.say(to, '[' + bookText + ']: ' + bot.bookmark[bookText]);
         }
     }
 });
