@@ -11,19 +11,23 @@ function process(nick, to, cmd, topass) {
 		}
 		bot.say(to, 'I need ~bookmark [phrase] [bookmark]-> OR ~bookmark remove [phrase] '+addlString);
 	} else {
-		var phrase = data.shift().toLowerCase();
+		var key = data.shift().toLowerCase();
 		data = data.join(' ');
-		if (phrase.match(/remove/i)) {
+		if (key.match(/remove/i)) {
 			if (bot.bookmark.hasOwnProperty(data)) {
 				delete bot.bookmark[data];
 				bot.say(to, 'Bookmark ' + data + ' deleted');
 				removeBookmark(data);
 			}
 		}
-		else if (!isFunction(phrase)) {
-			bot.bookmark[phrase] = data;
-			addToDatabase(data, phrase);
-			bot.say(to, "Bookmark added!");
+		else if (!isFunction(key)) {
+			if (bot.bookmark.hasOwnProperty(key)) {
+				bot.say(to, 'Bookmark ' + key + ' already exists');
+			} else {
+				bot.bookmark[key] = data;
+				addToDatabase(data, key);
+				bot.say(to, "Bookmark added!");
+			}
 		}
 	}
 }
