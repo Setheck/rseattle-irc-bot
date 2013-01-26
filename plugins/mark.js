@@ -59,7 +59,7 @@ function removeBookmark(data) {
 function populateDatabase() {
 	db.serialize(function() {
 		db.run('CREATE TABLE if not exists bookmark (key TEXT, value TEXT);');
-		db.each("SELECT * FROM bookmark;", function(err, row) {
+		db.each("SELECT * FROM bookmark ORDER BY key;", function(err, row) {
 			bot.bookmark[row.key.toLowerCase()] = row.value;
 		});
 	});
